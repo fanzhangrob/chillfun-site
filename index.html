@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CHILL FUN | Digital Communications Advisory</title>
+  <meta name="description" content="CHILL FUN provides advisory and information services for enterprise communications, voice, messaging, and digital engagement platforms." />
+  <style>
+    :root {
+      --bg: #081120;
+      --bg-soft: #0d1830;
+      --panel: rgba(15, 28, 52, 0.82);
+      --panel-strong: rgba(17, 32, 61, 0.96);
+      --line: rgba(255, 255, 255, 0.1);
+      --text: #eef4ff;
+      --muted: #a7b5d6;
+      --accent: #7ae6ff;
+      --accent-2: #7f8cff;
+      --accent-3: #77f4b1;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.35);
+      --radius: 22px;
+      --max-width: 1160px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(122, 230, 255, 0.18), transparent 24%),
+        radial-gradient(circle at 80% 12%, rgba(127, 140, 255, 0.18), transparent 22%),
+        radial-gradient(circle at 60% 80%, rgba(119, 244, 177, 0.12), transparent 20%),
+        linear-gradient(180deg, #050c17 0%, #081120 46%, #050b15 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: linear-gradient(to bottom, rgba(0,0,0,.55), transparent 80%);
+      pointer-events: none;
+      opacity: .22;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    .shell {
+      width: min(100% - 32px, var(--max-width));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(16px);
+      background: rgba(5, 12, 23, 0.72);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 78px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 174px;
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(122,230,255,0.18));
+      border-radius: 12px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: var(--text);
+    }
+
+    .lang-switch {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .lang-switch button {
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.04);
+      color: var(--muted);
+      padding: 10px 14px;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: all .2s ease;
+    }
+
+    .lang-switch button.active,
+    .lang-switch button:hover {
+      background: linear-gradient(135deg, rgba(122,230,255,.14), rgba(127,140,255,.16));
+      color: var(--text);
+      border-color: rgba(122,230,255,0.35);
+      box-shadow: 0 8px 22px rgba(122,230,255,0.12);
+    }
+
+    .hero {
+      padding: 84px 0 42px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-copy {
+      padding: 40px;
+      min-height: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(122,230,255,.08);
+      border: 1px solid rgba(122,230,255,.16);
+      color: #c9f8ff;
+      font-size: 13px;
+      letter-spacing: .02em;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 { margin: 0; letter-spacing: -0.03em; }
+
+    h1 {
+      font-size: clamp(2.7rem, 6vw, 4.6rem);
+      line-height: .98;
+      margin-bottom: 18px;
+      max-width: 10ch;
+    }
+
+    .hero-copy p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 60ch;
+      margin: 0 0 26px;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 20px;
+      border-radius: 999px;
+      font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+
+    .button.primary {
+      color: #06111d;
+      background: linear-gradient(135deg, var(--accent), #b8fbff);
+      box-shadow: 0 18px 42px rgba(122,230,255,.22);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.35rem;
+      margin-bottom: 4px;
+    }
+
+    .stat span {
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .hero-visual {
+      padding: 28px;
+      display: grid;
+      gap: 16px;
+      align-content: stretch;
+      background:
+        radial-gradient(circle at top right, rgba(122,230,255,.15), transparent 35%),
+        radial-gradient(circle at bottom left, rgba(127,140,255,.18), transparent 28%),
+        linear-gradient(180deg, rgba(14,26,50,0.98), rgba(10,18,35,0.98));
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 22px;
+    }
+
+    .signal-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .signal {
+      min-height: 122px;
+      border-radius: 18px;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    .signal .tag {
+      display: inline-block;
+      font-size: 12px;
+      color: #d2fbff;
+      margin-bottom: 10px;
+      padding: 5px 9px;
+      border: 1px solid rgba(122,230,255,.16);
+      border-radius: 999px;
+      background: rgba(122,230,255,.08);
+    }
+
+    .section {
+      padding: 34px 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .section-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      padding: 24px;
+      background: var(--panel-strong);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .card .icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(122,230,255,.18), rgba(127,140,255,.2));
+      border: 1px solid rgba(122,230,255,.16);
+    }
+
+    .card p,
+    .card li,
+    .contact-note,
+    .footer p { color: var(--muted); }
+
+    .vendor-strip {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .vendor {
+      padding: 16px 14px;
+      text-align: center;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.035);
+      color: #dbe7ff;
+      font-weight: 600;
+      letter-spacing: .02em;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .checklist {
+      list-style: none;
+      padding: 0;
+      margin: 18px 0 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .checklist li {
+      padding-left: 28px;
+      position: relative;
+    }
+
+    .checklist li::before {
+      content: "◆";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .contact-box {
+      padding: 24px;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.02));
+    }
+
+    .contact-box a {
+      display: inline-block;
+      margin-top: 8px;
+      color: #dffcff;
+      font-weight: 600;
+    }
+
+    .footer {
+      padding: 28px 0 52px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero-grid,
+      .split,
+      .contact-grid,
+      .cards {
+        grid-template-columns: 1fr;
+      }
+      .vendor-strip {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      .topbar-inner {
+        min-height: auto;
+        padding: 16px 0;
+        flex-wrap: wrap;
+      }
+      .nav { order: 3; width: 100%; justify-content: flex-start; }
+    }
+
+    @media (max-width: 720px) {
+      .hero { padding-top: 44px; }
+      .hero-copy, .hero-visual, .card, .contact-box { padding: 22px; }
+      .stats,
+      .signal-grid,
+      .vendor-strip,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+      .brand img { width: 148px; }
+      h1 { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="#top" aria-label="CHILL FUN home">
+        <img src="logo.jpeg" alt="CHILL FUN logo" />
+      </a>
+      <nav class="nav">
+        <a href="#services" data-i18n="navServices">Services</a>
+        <a href="#vendors" data-i18n="navPartners">Coverage</a>
+        <a href="#approach" data-i18n="navApproach">Approach</a>
+        <a href="#contact" data-i18n="navContact">Contact</a>
+      </nav>
+      <div class="lang-switch" aria-label="Language selector">
+        <button type="button" class="active" data-lang="en">EN</button>
+        <button type="button" data-lang="zh-Hans">简</button>
+        <button type="button" data-lang="zh-Hant">繁</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="shell hero-grid">
+        <div class="panel hero-copy">
+          <div class="eyebrow" data-i18n="eyebrow">Digital communications intelligence</div>
+          <h1 data-i18n="heroTitle">Connect strategy, voice, and messaging with confidence.</h1>
+          <p data-i18n="heroBody">CHILL FUN delivers practical market intelligence and advisory services for the electronic information industry, with a focus on enterprise voice, customer messaging, and digital communications platforms. From WeCom and WhatsApp to AudioCodes, Oracle, and Ribbon, we help teams navigate products, ecosystems, and go-to-market decisions with clarity.</p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:info@chillfun.org" data-i18n="ctaPrimary">Talk to us</a>
+            <a class="button secondary" href="#services" data-i18n="ctaSecondary">Explore services</a>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <strong data-i18n="stat1Number">Voice + Messaging</strong>
+              <span data-i18n="stat1Label">Cross-domain advisory coverage</span>
+            </div>
+            <div class="stat">
+              <strong data-i18n="stat2Number">Vendor neutral</strong>
+              <span data-i18n="stat2Label">Independent perspective for decisions</span>
+            </div>
+            <div class="stat">
+              <strong data-i18n="stat3Number">Fast-moving</strong>
+              <span data-i18n="stat3Label">Built for evolving platforms and policies</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel hero-visual">
+          <div class="hero-card">
+            <h3 data-i18n="visualTitle">Coverage across the communications stack</h3>
+            <p data-i18n="visualBody">Advisory for enterprise messaging, voice infrastructure, channel strategy, product positioning, and ecosystem updates.</p>
+            <div class="signal-grid">
+              <div class="signal">
+                <span class="tag" data-i18n="signalTag1">Messaging</span>
+                <h3 data-i18n="signalTitle1">Channels & ecosystems</h3>
+                <p data-i18n="signalBody1">WhatsApp, WeCom, SMS, and omnichannel engagement.</p>
+              </div>
+              <div class="signal">
+                <span class="tag" data-i18n="signalTag2">Voice</span>
+                <h3 data-i18n="signalTitle2">Infrastructure insight</h3>
+                <p data-i18n="signalBody2">Session border controllers, cloud voice, and telephony architecture.</p>
+              </div>
+              <div class="signal">
+                <span class="tag" data-i18n="signalTag3">Advisory</span>
+                <h3 data-i18n="signalTitle3">Practical guidance</h3>
+                <p data-i18n="signalBody3">Market perspective, vendor understanding, and solution framing.</p>
+              </div>
+              <div class="signal">
+                <span class="tag" data-i18n="signalTag4">Execution</span>
+                <h3 data-i18n="signalTitle4">Business-ready output</h3>
+                <p data-i18n="signalBody4">Briefings, consultation, and strategic support for teams.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="servicesTitle">What we do</h2>
+            <p data-i18n="servicesBody">Focused services designed for teams operating in enterprise communications, messaging, and electronic information markets.</p>
+          </div>
+        </div>
+        <div class="cards">
+          <article class="card">
+            <div class="icon">⌁</div>
+            <h3 data-i18n="service1Title">Industry intelligence</h3>
+            <p data-i18n="service1Body">Curated insight into the electronic information sector, including communication trends, platform direction, and ecosystem developments relevant to business decision-makers.</p>
+          </article>
+          <article class="card">
+            <div class="icon">◈</div>
+            <h3 data-i18n="service2Title">Product & solution consulting</h3>
+            <p data-i18n="service2Body">Advisory around enterprise messaging, voice platforms, channel fit, integration thinking, and solution positioning for customer engagement use cases.</p>
+          </article>
+          <article class="card">
+            <div class="icon">✦</div>
+            <h3 data-i18n="service3Title">Technical and business support</h3>
+            <p data-i18n="service3Body">Responsive support for evaluations, architecture discussions, technical clarifications, and communication strategy related to selected vendors and platforms.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="vendors">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="vendorsTitle">Platform and vendor coverage</h2>
+            <p data-i18n="vendorsBody">Representative areas we can advise on across enterprise messaging and voice communications.</p>
+          </div>
+        </div>
+        <div class="vendor-strip">
+          <div class="vendor">WeCom</div>
+          <div class="vendor">WhatsApp</div>
+          <div class="vendor">AudioCodes</div>
+          <div class="vendor">Oracle</div>
+          <div class="vendor">Ribbon</div>
+          <div class="vendor">SMS</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="approach">
+      <div class="shell split">
+        <div class="card">
+          <h2 data-i18n="approachTitle">How we work</h2>
+          <p data-i18n="approachBody">CHILL FUN combines market awareness with practical communications knowledge, helping clients move from scattered information to clearer strategic decisions.</p>
+          <ul class="checklist">
+            <li data-i18n="approachPoint1">Clarify business and technical objectives around voice and messaging initiatives.</li>
+            <li data-i18n="approachPoint2">Translate platform capabilities and vendor differences into actionable recommendations.</li>
+            <li data-i18n="approachPoint3">Support planning, evaluation, and communication with a concise and professional approach.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h2 data-i18n="whyTitle">Why CHILL FUN</h2>
+          <p data-i18n="whyBody">Built for teams that want concise, reliable, and technology-aware guidance without unnecessary complexity.</p>
+          <ul class="checklist">
+            <li data-i18n="whyPoint1">Clear focus on enterprise voice, messaging, and electronic communications services.</li>
+            <li data-i18n="whyPoint2">Balanced perspective across platforms, products, and partner ecosystems.</li>
+            <li data-i18n="whyPoint3">Suitable for market briefings, consultations, and ongoing support needs.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="shell">
+        <div class="section-head">
+          <div>
+            <h2 data-i18n="contactTitle">Get in touch</h2>
+            <p data-i18n="contactBody">For business inquiries and technical support, reach us through the right channel below.</p>
+          </div>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-box">
+            <h3 data-i18n="contactBizTitle">Business inquiries</h3>
+            <p class="contact-note" data-i18n="contactBizBody">For company information, partnership discussion, and advisory service inquiries.</p>
+            <a href="mailto:info@chillfun.org">info@chillfun.org</a>
+          </div>
+          <div class="contact-box">
+            <h3 data-i18n="contactSupportTitle">Technical support</h3>
+            <p class="contact-note" data-i18n="contactSupportBody">For product-related questions, technical clarification, and support requests.</p>
+            <a href="mailto:support@chillfun.org">support@chillfun.org</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell">
+      <p data-i18n="footer">© <span id="year"></span> CHILL FUN. Electronic information industry advisory for enterprise communications.</p>
+    </div>
+  </footer>
+
+  <script>
+    const content = {
+      en: {
+        navServices: "Services",
+        navPartners: "Coverage",
+        navApproach: "Approach",
+        navContact: "Contact",
+        eyebrow: "Digital communications intelligence",
+        heroTitle: "Connect strategy, voice, and messaging with confidence.",
+        heroBody: "CHILL FUN delivers practical market intelligence and advisory services for the electronic information industry, with a focus on enterprise voice, customer messaging, and digital communications platforms. From WeCom and WhatsApp to AudioCodes, Oracle, and Ribbon, we help teams navigate products, ecosystems, and go-to-market decisions with clarity.",
+        ctaPrimary: "Talk to us",
+        ctaSecondary: "Explore services",
+        stat1Number: "Voice + Messaging",
+        stat1Label: "Cross-domain advisory coverage",
+        stat2Number: "Vendor neutral",
+        stat2Label: "Independent perspective for decisions",
+        stat3Number: "Fast-moving",
+        stat3Label: "Built for evolving platforms and policies",
+        visualTitle: "Coverage across the communications stack",
+        visualBody: "Advisory for enterprise messaging, voice infrastructure, channel strategy, product positioning, and ecosystem updates.",
+        signalTag1: "Messaging",
+        signalTitle1: "Channels & ecosystems",
+        signalBody1: "WhatsApp, WeCom, SMS, and omnichannel engagement.",
+        signalTag2: "Voice",
+        signalTitle2: "Infrastructure insight",
+        signalBody2: "Session border controllers, cloud voice, and telephony architecture.",
+        signalTag3: "Advisory",
+        signalTitle3: "Practical guidance",
+        signalBody3: "Market perspective, vendor understanding, and solution framing.",
+        signalTag4: "Execution",
+        signalTitle4: "Business-ready output",
+        signalBody4: "Briefings, consultation, and strategic support for teams.",
+        servicesTitle: "What we do",
+        servicesBody: "Focused services designed for teams operating in enterprise communications, messaging, and electronic information markets.",
+        service1Title: "Industry intelligence",
+        service1Body: "Curated insight into the electronic information sector, including communication trends, platform direction, and ecosystem developments relevant to business decision-makers.",
+        service2Title: "Product & solution consulting",
+        service2Body: "Advisory around enterprise messaging, voice platforms, channel fit, integration thinking, and solution positioning for customer engagement use cases.",
+        service3Title: "Technical and business support",
+        service3Body: "Responsive support for evaluations, architecture discussions, technical clarifications, and communication strategy related to selected vendors and platforms.",
+        vendorsTitle: "Platform and vendor coverage",
+        vendorsBody: "Representative areas we can advise on across enterprise messaging and voice communications.",
+        approachTitle: "How we work",
+        approachBody: "CHILL FUN combines market awareness with practical communications knowledge, helping clients move from scattered information to clearer strategic decisions.",
+        approachPoint1: "Clarify business and technical objectives around voice and messaging initiatives.",
+        approachPoint2: "Translate platform capabilities and vendor differences into actionable recommendations.",
+        approachPoint3: "Support planning, evaluation, and communication with a concise and professional approach.",
+        whyTitle: "Why CHILL FUN",
+        whyBody: "Built for teams that want concise, reliable, and technology-aware guidance without unnecessary complexity.",
+        whyPoint1: "Clear focus on enterprise voice, messaging, and electronic communications services.",
+        whyPoint2: "Balanced perspective across platforms, products, and partner ecosystems.",
+        whyPoint3: "Suitable for market briefings, consultations, and ongoing support needs.",
+        contactTitle: "Get in touch",
+        contactBody: "For business inquiries and technical support, reach us through the right channel below.",
+        contactBizTitle: "Business inquiries",
+        contactBizBody: "For company information, partnership discussion, and advisory service inquiries.",
+        contactSupportTitle: "Technical support",
+        contactSupportBody: "For product-related questions, technical clarification, and support requests.",
+        footer: "© {year} CHILL FUN. Electronic information industry advisory for enterprise communications."
+      },
+      "zh-Hans": {
+        navServices: "服务",
+        navPartners: "覆盖范围",
+        navApproach: "合作方式",
+        navContact: "联系",
+        eyebrow: "企业通信与数字连接资讯",
+        heroTitle: "让语音、消息与业务策略更清晰地连接。",
+        heroBody: "趣馳 CHILL FUN 专注于电子信息行业的资讯与咨询服务，聚焦企业语音、客户消息互动及数字通信平台。无论是 WeCom、WhatsApp，还是 AudioCodes、Oracle、Ribbon 等产品与生态，我们都能提供更清晰、更务实的分析与建议，帮助团队做出业务与技术判断。",
+        ctaPrimary: "联系我们",
+        ctaSecondary: "查看服务",
+        stat1Number: "语音 + 消息",
+        stat1Label: "跨领域咨询覆盖",
+        stat2Number: "中立视角",
+        stat2Label: "帮助更稳妥地做决策",
+        stat3Number: "紧贴变化",
+        stat3Label: "适应平台与政策持续演进",
+        visualTitle: "覆盖企业通信关键链路",
+        visualBody: "围绕企业消息、语音基础设施、渠道策略、产品定位与生态动态，提供实用咨询支持。",
+        signalTag1: "消息",
+        signalTitle1: "渠道与生态",
+        signalBody1: "WhatsApp、WeCom、短信及全渠道客户互动。",
+        signalTag2: "语音",
+        signalTitle2: "基础设施洞察",
+        signalBody2: "SBC、云语音、企业电话架构与相关能力。",
+        signalTag3: "咨询",
+        signalTitle3: "务实建议",
+        signalBody3: "从市场、厂商到方案价值，形成可执行判断。",
+        signalTag4: "支援",
+        signalTitle4: "面向业务落地",
+        signalBody4: "支持简报、咨询沟通与持续性的策略协助。",
+        servicesTitle: "我们的服务",
+        servicesBody: "为企业通信、消息平台和电子信息市场相关团队提供聚焦且可落地的服务。",
+        service1Title: "行业资讯与洞察",
+        service1Body: "聚焦电子信息行业与企业通信领域，整理平台动态、市场趋势与生态变化，帮助管理者与业务团队快速把握重点。",
+        service2Title: "产品与方案咨询",
+        service2Body: "围绕企业消息、语音平台、渠道匹配、集成思路与方案定位，提供适合客户互动场景的咨询建议。",
+        service3Title: "技术与业务支援",
+        service3Body: "支持产品评估、架构讨论、技术澄清与沟通策略，覆盖指定厂商与平台相关需求。",
+        vendorsTitle: "平台与厂商覆盖",
+        vendorsBody: "以下为我们可提供咨询的代表性领域与平台方向。",
+        approachTitle: "我们如何合作",
+        approachBody: "趣馳 CHILL FUN 结合市场观察与通信专业理解，帮助客户把零散信息转化成更明确的策略判断。",
+        approachPoint1: "先厘清语音与消息相关项目的业务目标与技术需求。",
+        approachPoint2: "把平台能力与厂商差异转化为可执行的建议。",
+        approachPoint3: "以简洁、专业、可沟通的方式支持规划、评估与内部对齐。",
+        whyTitle: "为什么选择趣馳",
+        whyBody: "适合希望获得可靠、简洁、具科技理解力建议的团队，不走复杂冗长路线。",
+        whyPoint1: "聚焦企业语音、消息与电子通信服务领域。",
+        whyPoint2: "跨平台、跨产品、跨生态的平衡视角。",
+        whyPoint3: "适用于市场简报、专项咨询与持续支援场景。",
+        contactTitle: "联系我们",
+        contactBody: "欢迎通过以下方式联系业务咨询或技术支援。",
+        contactBizTitle: "业务咨询",
+        contactBizBody: "公司介绍、合作讨论、咨询服务请联系此邮箱。",
+        contactSupportTitle: "技术支援",
+        contactSupportBody: "产品问题、技术澄清与支援需求请联系此邮箱。",
+        footer: "© {year} 趣馳 CHILL FUN。专注企业通信与电子信息行业咨询服务。"
+      },
+      "zh-Hant": {
+        navServices: "服務",
+        navPartners: "涵蓋範圍",
+        navApproach: "合作方式",
+        navContact: "聯絡",
+        eyebrow: "企業通訊與數位連結資訊",
+        heroTitle: "讓語音、訊息與業務策略更清晰地連結。",
+        heroBody: "趣馳 CHILL FUN 專注於電子資訊產業的資訊與諮詢服務，聚焦企業語音、客戶訊息互動及數位通訊平台。無論是 WeCom、WhatsApp，還是 AudioCodes、Oracle、Ribbon 等產品與生態，我們都能提供更清楚、更務實的分析與建議，協助團隊做出業務與技術判斷。",
+        ctaPrimary: "聯絡我們",
+        ctaSecondary: "查看服務",
+        stat1Number: "語音 + 訊息",
+        stat1Label: "跨領域諮詢涵蓋",
+        stat2Number: "中立視角",
+        stat2Label: "協助更穩健地做決策",
+        stat3Number: "緊貼變化",
+        stat3Label: "對應平台與政策持續演進",
+        visualTitle: "涵蓋企業通訊關鍵鏈路",
+        visualBody: "圍繞企業訊息、語音基礎設施、渠道策略、產品定位與生態動態，提供實用的諮詢支援。",
+        signalTag1: "訊息",
+        signalTitle1: "渠道與生態",
+        signalBody1: "WhatsApp、WeCom、簡訊與全通路客戶互動。",
+        signalTag2: "語音",
+        signalTitle2: "基礎設施洞察",
+        signalBody2: "SBC、雲語音、企業電話架構與相關能力。",
+        signalTag3: "諮詢",
+        signalTitle3: "務實建議",
+        signalBody3: "從市場、廠商到方案價值，形成可執行判斷。",
+        signalTag4: "支援",
+        signalTitle4: "面向業務落地",
+        signalBody4: "支援簡報、諮詢溝通與持續性的策略協助。",
+        servicesTitle: "我們的服務",
+        servicesBody: "為企業通訊、訊息平台與電子資訊市場相關團隊提供聚焦且可落地的服務。",
+        service1Title: "產業資訊與洞察",
+        service1Body: "聚焦電子資訊產業與企業通訊領域，整理平台動態、市場趨勢與生態變化，協助管理者與業務團隊快速掌握重點。",
+        service2Title: "產品與方案諮詢",
+        service2Body: "圍繞企業訊息、語音平台、渠道匹配、整合思路與方案定位，提供適合客戶互動場景的諮詢建議。",
+        service3Title: "技術與業務支援",
+        service3Body: "支援產品評估、架構討論、技術釐清與溝通策略，涵蓋指定廠商與平台相關需求。",
+        vendorsTitle: "平台與廠商涵蓋",
+        vendorsBody: "以下為我們可提供諮詢的代表性領域與平台方向。",
+        approachTitle: "我們如何合作",
+        approachBody: "趣馳 CHILL FUN 結合市場觀察與通訊專業理解，協助客戶把零散資訊轉化成更明確的策略判斷。",
+        approachPoint1: "先釐清語音與訊息相關專案的業務目標與技術需求。",
+        approachPoint2: "把平台能力與廠商差異轉化為可執行的建議。",
+        approachPoint3: "以簡潔、專業、可溝通的方式支援規劃、評估與內部對齊。",
+        whyTitle: "為什麼選擇趣馳",
+        whyBody: "適合希望獲得可靠、簡潔、具科技理解力建議的團隊，不走複雜冗長路線。",
+        whyPoint1: "聚焦企業語音、訊息與電子通訊服務領域。",
+        whyPoint2: "跨平台、跨產品、跨生態的平衡視角。",
+        whyPoint3: "適用於市場簡報、專項諮詢與持續支援場景。",
+        contactTitle: "聯絡我們",
+        contactBody: "歡迎透過以下方式聯絡業務諮詢或技術支援。",
+        contactBizTitle: "業務諮詢",
+        contactBizBody: "公司介紹、合作討論、諮詢服務請聯絡此信箱。",
+        contactSupportTitle: "技術支援",
+        contactSupportBody: "產品問題、技術釐清與支援需求請聯絡此信箱。",
+        footer: "© {year} 趣馳 CHILL FUN。專注企業通訊與電子資訊產業諮詢服務。"
+      }
+    };
+
+    const applyLanguage = (lang) => {
+      const selected = content[lang] || content.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach((node) => {
+        const key = node.getAttribute('data-i18n');
+        let value = selected[key] || content.en[key] || '';
+        value = value.replace('{year}', new Date().getFullYear());
+        node.textContent = value;
+      });
+      document.title = lang === 'en' ? 'CHILL FUN | Digital Communications Advisory' : '趣馳 CHILL FUN | 企業通信與電子資訊諮詢';
+      localStorage.setItem('chillfun-lang', lang);
+      document.querySelectorAll('.lang-switch button').forEach((btn) => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    };
+
+    const preferred = localStorage.getItem('chillfun-lang');
+    applyLanguage(preferred || 'en');
+
+    document.querySelectorAll('.lang-switch button').forEach((button) => {
+      button.addEventListener('click', () => applyLanguage(button.dataset.lang));
+    });
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
